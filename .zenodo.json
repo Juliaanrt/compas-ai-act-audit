@@ -1,0 +1,9 @@
+{
+  "title": "Auditing the Unauditable: analysis code for the SHAP-based EU AI Act compliance assessment on COMPAS",
+  "upload_type": "software",
+  "creators": [{"name": "Reiter, Julian", "affiliation": "FOM Hochschule für Ökonomie & Management"}],
+  "description": "Reproduction code for the article 'Auditing the Unauditable: SHAP-Based EU AI Act Compliance Assessment and the Limits of Correlation-Based De-Biasing in Recidivism Prediction'. Eleven numbered Python scripts reproduce every table and figure of the manuscript from the public ProPublica COMPAS file.",
+  "license": "MIT",
+  "keywords": ["algorithmic fairness", "explainable AI", "SHAP", "EU AI Act", "COMPAS", "recidivism prediction", "proxy discrimination"],
+  "version": "1.0.0"
+}
