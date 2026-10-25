@@ -1,14 +1,14 @@
 """
 10 - Mechanism isolation on synthetic data (Section 4.7, Table 8,
-Figure 5, Appendix B).
+Figure 4, Appendix A).
 
-Data-generating process (Appendix B.1): group ~ Bernoulli(0.6); count ~
+Data-generating process (Appendix A.1): group ~ Bernoulli(0.6); count ~
 Poisson(lambda0 + delta * group); two standard-normal nuisance features
 independent of group and outcome; y ~ Bernoulli(sigmoid(beta0 + beta1 *
 count)). Each condition is replicated over 30 seeds with an 80/20 split
 stratified on y; the offset is estimated on the training partition.
 
-Conditions (Appendix B.2), all with the same true delta = 1.95:
+Conditions (Appendix A.2), all with the same true delta = 1.95:
     A  count - delta_hat * group                       (fractional offset)
     B  count - round(delta_hat) * group                (integer offset)
     C  continuous proxy N(lambda, sqrt(lambda)), shifted by delta_hat
@@ -20,10 +20,10 @@ between the untransformed and the transformed feature; recoverability of
 the group from the transformed feature alone (depth-6 and unrestricted
 tree, held-out); test observations below the original support.
 
-Offset sweep (Appendix B.3): true delta from 1.0 to 3.0, 30 seeds each,
-recoverability and fractional part of delta_hat (Figure 5).
+Offset sweep (Appendix A.3): true delta from 1.0 to 3.0, 30 seeds each,
+recoverability and fractional part of delta_hat (Figure 4).
 
-Outputs: table8_synthetic.csv, synthetic_raw.csv, delta_sweep.csv, figure5.png
+Outputs: table8_synthetic.csv, synthetic_raw.csv, delta_sweep.csv, figure4_synthetic.png
 """
 
 import numpy as np
@@ -94,7 +94,7 @@ def main():
           f"range channel (B - E): {t8.loc['B', 'rec_depth6'] - t8.loc['E', 'rec_depth6']:.3f}")
     save(t8.reset_index(), "table8_synthetic.csv")
 
-    # --- Offset sweep (Figure 5) -------------------------------------------------
+    # --- Offset sweep (Figure 4) -------------------------------------------------
     rows = []
     for delta in C.SYN_DELTA_SWEEP:
         for seed in range(C.N_SEEDS):
@@ -140,8 +140,8 @@ def main():
         for ax in (a1, a2):
             ax.spines[["top", "right"]].set_visible(False)
         fig.tight_layout()
-        fig.savefig(out("figure5.png"), dpi=600)
-        print("saved: outputs/figure5.png")
+        fig.savefig(out("figure4_synthetic.png"), dpi=600)
+        print("saved: outputs/figure4_synthetic.png")
     except Exception as e:
         print("figure skipped:", e.__class__.__name__)
 

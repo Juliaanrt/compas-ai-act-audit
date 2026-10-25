@@ -1,6 +1,6 @@
 """
 07 - The de-biasing experiment over 30 seeds (Sections 3.5, 4.4;
-Table 5, Figure 4).
+Table 5, Figure 3).
 
 For each seed (0..29), each feature set (medium, full), each alpha in
 {0, 0.05, ..., 1} and each model class (XGBoost, random forest, logistic
@@ -26,7 +26,7 @@ Aggregation (unit of analysis = seed):
 Runtime: roughly 30-60 minutes.
 Outputs: debiasing_raw.csv, recoverability_raw.csv, table5.csv,
          debiasing_controls.csv, dose_response.csv, recoverability_summary.csv,
-         age_residualization.csv, figure4_frontier.png
+         age_residualization.csv, figure3_frontier.png
 """
 
 import numpy as np
@@ -191,14 +191,16 @@ def main():
           f"unrestricted {r1.rec_unrestricted.mean():.3f}")
     save(pd.DataFrame(rows), "age_residualization.csv")
 
-    # --- Figure 4 ----------------------------------------------------------------
+    # --- Figure 3 ----------------------------------------------------------------
     try:
         import matplotlib
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
         g = focal.groupby("alpha")
         fig, axes = plt.subplots(1, 2, figsize=(8, 3.2))
-        for ax, col, lab in zip(axes, ["DPD", "FPR_gap"], ["demographic parity difference", "FPR gap"]):
+        panels = [("DPD", "demographic parity difference", "(a) Demographic parity difference"),
+                  ("FPR_gap", "FPR gap", "(b) False positive rate gap")]
+        for ax, (col, lab, title) in zip(axes, panels):
             m, s = g[col].mean(), g[col].std() / np.sqrt(C.N_SEEDS) * 1.96
             ax.fill_between(m.index, m - s, m + s, color="0.85", lw=0)
             ax.plot(m.index, m, "o-", color="black", ms=3)
@@ -206,9 +208,10 @@ def main():
             ax.axhline(C.DISPARITY_THRESHOLD, color="0.4", ls="--")
             ax.set_xlabel("de-biasing intensity α")
             ax.set_ylabel(lab)
+            ax.set_title(title, fontsize=9, loc="left")
         fig.tight_layout()
-        fig.savefig(out("figure4_frontier.png"), dpi=300)
-        print("saved: outputs/figure4_frontier.png")
+        fig.savefig(out("figure3_frontier.png"), dpi=300)
+        print("saved: outputs/figure3_frontier.png")
     except Exception as e:
         print("figure skipped:", e.__class__.__name__)
 

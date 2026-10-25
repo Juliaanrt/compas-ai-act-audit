@@ -33,7 +33,7 @@ FEATURES_FULL = FEATURES_MEDIUM + ["juv_fel_count", "juv_misd_count", "juv_other
 FEATURE_SETS = {"Minimal": FEATURES_MINIMAL, "Medium": FEATURES_MEDIUM, "Full": FEATURES_FULL}
 
 # --- Seeds ------------------------------------------------------------------
-SEED_DESCRIPTIVE = 42       # single-split descriptive results (Tables 2-4, Figures 1-3)
+SEED_DESCRIPTIVE = 42       # single-split descriptive results (Tables 2-4, Figures 1-2)
 N_SEEDS = 30                # multi-seed de-biasing design, seeds 0..29 (Section 3.5)
 N_SEEDS_WINDOW = 20         # temporal window sensitivity (Table 6)
 N_BOOT = 500                # bootstrap resamples for SHAP rank stability (Section 4.5)
@@ -45,7 +45,7 @@ PROXY = "priors_count"      # dominant proxy channel (Section 4.3)
 SECOND_PROXY = "age"        # second proxy channel
 RECOV_DEPTH = 6             # depth of the recoverability probe (Feldman et al.)
 
-# --- Case-level analysis (Section 3.3, Figure 3) ----------------------------
+# --- Case-level analysis (Section 4.3, supplementary waterfalls) -----------
 # Row labels of the ProPublica CSV. Verified by attribute in 04_shap_audit.py.
 CASE_A = {"index": 142, "race": "African-American", "age": 20, "priors_count": 1, "decile_score": 10}
 CASE_B = {"index": 568, "race": "Caucasian", "age": 44, "priors_count": 11, "decile_score": 3}
@@ -62,7 +62,7 @@ FOUR_FIFTHS = 0.8           # EEOC four-fifths rule for the disparate impact rat
 COMPAS_HIGH_DECILE = 7      # vendor's "high" category
 ECE_BINS = 10
 
-# --- Synthetic data (Appendix B) --------------------------------------------
+# --- Synthetic data (Appendix A) --------------------------------------------
 SYN_N = 10_000
 SYN_P_GROUP = 0.6
 SYN_LAMBDA0 = 2.0

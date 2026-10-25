@@ -28,7 +28,7 @@ import config as C
 warnings.filterwarnings("ignore")
 
 try:                      # shap is used only for the summary / waterfall plots
-    import shap           # (Figures 2 and 3) and for random-forest SHAP values
+    import shap           # (Figure 2, case waterfalls) and for random-forest SHAP values
     HAS_SHAP = True
 except Exception:       
     HAS_SHAP = False

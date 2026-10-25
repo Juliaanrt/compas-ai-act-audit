@@ -1,13 +1,14 @@
 """
 04 - SHAP audit: global proxy identification, cross-model and cross-seed
-robustness, case-level explanations (Sections 3.3, 4.3; Figures 2, 3).
+robustness, case-level explanations (Sections 3.3, 4.3; Figure 2).
 
 Part A  Figure 2: global SHAP summary of the focal model (seed 42).
 Part B  Cross-model rank agreement on the medium (four-feature) set:
         LinearSHAP for logistic regression, TreeSHAP for random forest
         and XGBoost, same split, library defaults.
 Part C  Rank stability of the focal model across the 30 seeds.
-Part D  Figure 3: SHAP waterfalls for Case A and Case B; minimal
+Part D  Supplementary (not shown as a figure in the manuscript): SHAP
+        waterfalls for Case A and Case B (Section 4.3); minimal
         single-feature changes that flip each prediction (exhaustive
         integer sweep); integer-verified counterfactuals with DiCE
         (optional dependency).
@@ -15,7 +16,7 @@ Part E  Global SHAP importance at alpha = 0 and alpha = 1 (Section 4.4:
         attribution is not redistributed by the residualization).
 
 Outputs: figure2_shap_summary.png, shap_cross_model.csv,
-         shap_rank_stability_seeds.csv, figure3a/b_waterfall.png,
+         shap_rank_stability_seeds.csv, waterfall_case_a/b.png,
          minimal_flips.csv, counterfactuals_case_A/B.csv, shap_alpha0_vs_alpha1.csv
 """
 
@@ -83,7 +84,7 @@ def main():
     print(f"\nprior offence count rank 1 and age rank 2 in {n_ok}/{C.N_SEEDS} seeds")
     save(stab, "shap_rank_stability_seeds.csv")
 
-    # --- Part D: case-level explanations (Figure 3) and counterfactuals ------
+    # --- Part D: case-level explanations (supplementary) and counterfactuals -
     for case in (C.CASE_A, C.CASE_B):
         verify_case(df, case)
     if HAS_SHAP:
@@ -96,9 +97,9 @@ def main():
             plt.figure(figsize=(8, 4))
             shap.plots.waterfall(expl[pos], show=False)
             plt.tight_layout()
-            plt.savefig(out(f"figure3{tag}_waterfall.png"), dpi=300, bbox_inches="tight")
+            plt.savefig(out(f"waterfall_case_{tag}.png"), dpi=300, bbox_inches="tight")
             plt.close()
-            print(f"saved: outputs/figure3{tag}_waterfall.png")
+            print(f"saved: outputs/waterfall_case_{tag}.png")
     # exhaustive integer sweep: smallest change of one feature that flips the prediction
     flips = []
     for tag, case in (("A", C.CASE_A), ("B", C.CASE_B)):
