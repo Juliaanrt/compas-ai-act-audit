@@ -1,9 +1,7 @@
-# Auditing the Unauditable — analysis code
+# Racial Bias, Explainability, and EU AI Act Compliance — analysis code
 
-Reproduction code for *Auditing the Unauditable: SHAP-Based EU AI Act
-Compliance Assessment and the Limits of Correlation-Based De-Biasing in
-Recidivism Prediction* (Julian Reiter, FOM Hochschule für Ökonomie &
-Management).
+Reproduction code for *Racial Bias, Explainability, and EU AI Act Compliance: A SHAP-Based Empirical Analysis of Recidivism Prediction on the COMPAS Dataset*
+(Julian Reiter, FOM Hochschule für Ökonomie & Management).
 
 ## Setup
 

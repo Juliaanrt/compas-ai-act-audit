@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+Title updated to match the final manuscript title ("Racial Bias, Explainability, and EU AI Act Compliance:
+A SHAP-Based Empirical Analysis of Recidivism Prediction on the COMPAS Dataset"). No change to code or results.
+
 ## 1.0.1
 Figure and appendix numbering aligned with the final manuscript (Figures 1
 to 4, Appendix A). Output files renamed accordingly
